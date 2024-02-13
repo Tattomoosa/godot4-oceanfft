@@ -10,9 +10,8 @@ class_name MotorVesselBody3D
 @export var thrust_power_main := 10.0
 @export var max_rudder_force := 10.0
 
-
-@onready var propeller:Marker3D = $Propeller
-@onready var rudder:Marker3D = $Propeller
+@export var propeller:Node3D
+@export var rudder:Node3D
 
 
 func _process(delta):
