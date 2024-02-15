@@ -1,6 +1,6 @@
 @tool
 @icon("res://addons/tessarakkt.oceanfft/icons/BuoyancyProbe3D.svg")
-extends Marker3D
+extends OceanDepthProbe3D
 class_name BuoyancyProbe3D
 ## Buoyancy probe used by BuoyancyBody3D to approximate an objects buoyancy.
 ##
@@ -11,22 +11,6 @@ class_name BuoyancyProbe3D
 
 ## The buoyancy multipler that applies to this probe only.
 @export_range(0.0, 100.0) var buoyancy_multiplier := 1.0
-
-## The height sampling steps used when sampling the wave height textures. This
-## is used to correct for the horizontal displacement that the waves include.
-@export_range(0, 10, 1) var height_sampling_steps := 2
-
-## The highest index displacement cascade the wave height will be sampled from.
-## lower numbers can be used to filter out smaller waves from a probes height
-## sample. Useful for making a large object disregard small waves and only
-## respond to larger swell waves.
-@export_range(0, 2, 1) var max_cascade := 1
-
-
-## The ocean simulation that will be sampled for wave height. If this probe is
-## added to a BuoyancyBody3D node, that bodies' assigned ocean will be assigned
-## to this probe.
-var ocean:Ocean3D
 
 # The BuoyancyBody3D this probe is being used by. Assigned automatically by seeking
 # up the tree for a BuoyancyBody3D upon being added to the tree, and removed
