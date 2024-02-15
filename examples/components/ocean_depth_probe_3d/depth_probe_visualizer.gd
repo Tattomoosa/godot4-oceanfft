@@ -42,7 +42,7 @@ func _get_camera() -> Camera3D:
 	return get_viewport().get_camera_3d()
 
 class LineMesh3D extends MeshInstance3D:
-	var width := 0.2
+	var width := 0.4
 	var color := Color.RED
 
 	func _ready():
