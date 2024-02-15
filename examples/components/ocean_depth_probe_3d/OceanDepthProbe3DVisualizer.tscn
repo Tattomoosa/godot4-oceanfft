@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2nrln1i2ssu1"]
+
+[ext_resource type="Script" path="res://addons/tessarakkt.oceanfft/components/OceanDepthProbe3D.gd" id="1_frk5r"]
+[ext_resource type="Script" path="res://examples/components/ocean_depth_probe_3d/depth_probe_visualizer.gd" id="2_h3kir"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ledn3"]
+radius = 1.0
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6qi06"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_pw3vn"]
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rrx6h"]
+albedo_color = Color(0.647059, 0.352941, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jit7r"]
+albedo_color = Color(0.678431, 0.223529, 0.603922, 1)
+
+[node name="OceanDepthProbe3DVisualizer" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+script = ExtResource("1_frk5r")
+max_cascade = 2
+height_sampling_steps = 10
+
+[node name="SurfaceIndicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.08165e-12, 0)
+mesh = SubResource("SphereMesh_ledn3")
+surface_material_override/0 = SubResource("StandardMaterial3D_6qi06")
+
+[node name="SurfaceIndicatorDot" type="MeshInstance3D" parent="SurfaceIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("SphereMesh_pw3vn")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_rrx6h")
+
+[node name="ProbeIndicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.08165e-12, 0)
+mesh = SubResource("SphereMesh_ledn3")
+surface_material_override/0 = SubResource("StandardMaterial3D_6qi06")
+
+[node name="ProbeIndicatorDot" type="MeshInstance3D" parent="ProbeIndicator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("SphereMesh_pw3vn")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_jit7r")
+
+[node name="OceanDepthProbeVisualizer3D" type="Node3D" parent="." node_paths=PackedStringArray("probe", "surface_indicator")]
+script = ExtResource("2_h3kir")
+probe = NodePath("..")
+surface_indicator = NodePath("../SurfaceIndicator")
