@@ -1,16 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://cobvbqhflb3aa"]
+[gd_scene load_steps=5 format=3 uid="uid://cobvbqhflb3aa"]
 
 [ext_resource type="PackedScene" uid="uid://17getqp6pf6r" path="res://examples/basic/BasicSetupExample.tscn" id="1_4onxn"]
 [ext_resource type="PackedScene" uid="uid://c2nrln1i2ssu1" path="res://examples/components/ocean_depth_probe_3d/OceanDepthProbe3DVisualizer.tscn" id="2_vcqga"]
-[ext_resource type="Script" path="res://examples/components/ocean_depth_probe_3d/depth_probe_visualizer_manager.gd" id="3_r1p6b"]
+[ext_resource type="Script" path="res://examples/components/ocean_depth_probe_3d/OceanDepthProbe3DVisualizerManager.gd" id="3_r1p6b"]
+[ext_resource type="Script" path="res://examples/components/ocean3d/ocean_wave_height_point_visualizer/OceanWaveHeightPointVisualizer3D.gd" id="4_dsh8m"]
 
 [node name="OceanDepthProbe3dExample" type="Node3D"]
 
 [node name="Ocean3DBasicSetupExample" parent="." instance=ExtResource("1_4onxn")]
+time_scale = 0.2
+choppiness = 4.143
+wind_direction_degrees = 169.714
+wind_speed = 1000.0
 
 [node name="DepthProbeVisualizerManager" type="Node3D" parent="." node_paths=PackedStringArray("ocean")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.7944, 0, 0)
 script = ExtResource("3_r1p6b")
-distance = Vector3(40, 2.08165e-12, 20)
+visualizer_mode = 1
+distance = Vector3(20, 2.08165e-12, 20)
 start_position = Vector3(-100, -20, -100)
+min_cascades = 2
+min_steps = 2
+max_steps = 3
 probe_scene = ExtResource("2_vcqga")
 ocean = NodePath("../Ocean3DBasicSetupExample")
+
+[node name="HeightTester" type="Node3D" parent="." node_paths=PackedStringArray("ocean")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115.523, 4.48215, -100.701)
+script = ExtResource("4_dsh8m")
+ocean = NodePath("../Ocean3DBasicSetupExample")
+max_cascade = 3
