@@ -347,8 +347,7 @@ func get_wave_height(global_pos:Vector3, max_cascade:int = 1, steps:int = 2) -> 
 	var xz_offset := Vector3.ZERO
 	var total_height := 0.0
 	var camera := _get_camera()
-	var camera_global_position = camera.global_position if camera else Vector3.ZERO
-	var linear_dist := (global_pos - camera_global_position).length()
+	var linear_dist := (global_pos - camera.global_position).length()
 	
 	## Wave Displacements
 	for cascade in range(max_cascade):
@@ -367,7 +366,7 @@ func get_wave_height(global_pos:Vector3, max_cascade:int = 1, steps:int = 2) -> 
 	total_height *= lerp(amplitude_scale_max, amplitude_scale_min, amplitude_fade_range)
 	
 	## Planetary Curve
-	var curvation:float = planetary_curve_strength * (pow(global_pos.x - camera_global_position.x, 2.0) + pow(global_pos.y - camera_global_position.z, 2.0))
+	var curvation:float = planetary_curve_strength * (pow(global_pos.x - camera.global_position.x, 2.0) + pow(global_pos.y - camera.global_position.z, 2.0))
 	total_height -= curvation;
 	
 	return total_height
