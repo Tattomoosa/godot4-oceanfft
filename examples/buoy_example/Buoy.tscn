@@ -1,0 +1,99 @@
+[gd_scene load_steps=10 format=3 uid="uid://b8go5hrs7pe12"]
+
+[ext_resource type="Script" path="res://addons/tessarakkt.oceanfft/components/BuoyancyBody3D.gd" id="1_kcae7"]
+[ext_resource type="Script" path="res://addons/tessarakkt.oceanfft/components/BuoyancyProbe3D.gd" id="2_86uve"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_alu5b"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_v81i7"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_l23lf"]
+top_radius = 0.05
+bottom_radius = 0.05
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_q3ejx"]
+height = 0.241524
+
+[sub_resource type="SphereMesh" id="SphereMesh_cws2a"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bfk7y"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6ffum"]
+top_radius = 0.1
+bottom_radius = 0.3
+
+[node name="Buoy" type="Node3D"]
+
+[node name="Anchor" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.41549, 0)
+mass = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Anchor"]
+mesh = SubResource("CylinderMesh_alu5b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Anchor"]
+shape = SubResource("CylinderShape3D_v81i7")
+
+[node name="BuoyJoint" type="ConeTwistJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.516364, 0)
+node_a = NodePath("../Buoy")
+node_b = NodePath("../AnchorLine")
+twist_span = 6.28319
+
+[node name="AnchorLine" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1.43222, 2.08165e-12)
+mass = 0.1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AnchorLine"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("CylinderMesh_l23lf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnchorLine"]
+shape = SubResource("CylinderShape3D_q3ejx")
+
+[node name="AnchorJoint" type="ConeTwistJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.39946, 0)
+node_a = NodePath("../AnchorLine")
+node_b = NodePath("../Anchor")
+
+[node name="Buoy" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000166858, 0)
+script = ExtResource("1_kcae7")
+buoyancy_multiplier = 500.0
+
+[node name="BuoyMesh" type="MeshInstance3D" parent="Buoy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("SphereMesh_cws2a")
+skeleton = NodePath("../..")
+
+[node name="BuoyancyProbe3D" type="Marker3D" parent="Buoy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.404328, 0)
+script = ExtResource("2_86uve")
+height_sampling_steps = 10
+max_cascade = 2
+
+[node name="BuoyancyProbe3D2" type="Marker3D" parent="Buoy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00442764, 0.505356)
+script = ExtResource("2_86uve")
+
+[node name="BuoyancyProbe3D3" type="Marker3D" parent="Buoy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00442764, -0.512604)
+script = ExtResource("2_86uve")
+
+[node name="BuoyancyProbe3D4" type="Marker3D" parent="Buoy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.517154, 0.0044277, 0.0269269)
+script = ExtResource("2_86uve")
+
+[node name="BuoyancyProbe3D5" type="Marker3D" parent="Buoy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.548405, 0.0044277, 0.0269269)
+script = ExtResource("2_86uve")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Buoy"]
+shape = SubResource("SphereShape3D_bfk7y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Buoy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15523, 0)
+mesh = SubResource("CylinderMesh_6ffum")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.139882, 0.990168, 0, -0.990168, -0.139882, 0, 2.73094, 0)

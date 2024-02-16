@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0v5l7jgsrxi2"]
+
+[ext_resource type="PackedScene" uid="uid://17getqp6pf6r" path="res://examples/basic/BasicSetupExample.tscn" id="1_dmtb6"]
+[ext_resource type="PackedScene" uid="uid://b8go5hrs7pe12" path="res://examples/buoy_example/Buoy.tscn" id="2_p8cnm"]
+[ext_resource type="Script" path="res://examples/example/Camera.gd" id="3_thk1k"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Ocean3DBasicSetupExample" parent="." instance=ExtResource("1_dmtb6")]
+
+[node name="Buoy" parent="." instance=ExtResource("2_p8cnm")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+script = ExtResource("3_thk1k")
+motion_enabled = true
