@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqwat3cghnkap"]
+
+[ext_resource type="PackedScene" uid="uid://17getqp6pf6r" path="res://examples/basic/BasicSetupExample.tscn" id="1_w4clf"]
+[ext_resource type="Script" path="res://examples/components/ocean3d/ocean_wave_height_point_visualizer/OceanWaveHeightPointVisualizer3D.gd" id="2_6wre4"]
+
+[node name="OceanHeightPointVisualizer" type="Node3D"]
+
+[node name="Ocean3DBasicSetupExample" parent="." instance=ExtResource("1_w4clf")]
+choppiness = 0.0
+wave_scroll_speed = 0.165
+
+[node name="OceanWaveHeightPointVisualizer" type="Node3D" parent="." node_paths=PackedStringArray("ocean")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 2.08165e-12, -128)
+script = ExtResource("2_6wre4")
+ocean = NodePath("../Ocean3DBasicSetupExample")
+distance = 12.0
+count = Vector2i(22, 22)

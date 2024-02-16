@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 
 @export var ocean: Ocean3D
