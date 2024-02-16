@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dwerj2pfpn56l"]
+
+[ext_resource type="Script" path="res://addons/tessarakkt.oceanfft/components/Ocean3D.gd" id="1_ld6hk"]
+[ext_resource type="Script" path="res://examples/components/ocean3d/ocean_wave_heightmap_visualizer/OceanWaveCascadeVisualizer3D.gd" id="2_kvkhy"]
+[ext_resource type="Shader" path="res://addons/tessarakkt.oceanfft/shaders/HeightMapVisual.gdshader" id="3_ynjav"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7hxqx"]
+render_priority = 0
+shader = ExtResource("3_ynjav")
+shader_parameter/normal_factor = 1.0
+shader_parameter/cascade_uv_scales = null
+shader_parameter/uv_scale = 0.00195312
+shader_parameter/wind_uv_offset = Vector2(0, 0)
+shader_parameter/view_distance_max = 16000.0
+shader_parameter/cascade_displacements = null
+shader_parameter/domain_warp_uv_scale = 6.25e-05
+shader_parameter/domain_warp_strength = 1500.0
+shader_parameter/cascade_index = 0
+shader_parameter/amplitude_scale_min = 0.25
+shader_parameter/amplitude_scale_max = 1.0
+shader_parameter/amplitude_scale_fade_distance = 12000.0
+
+[node name="OceanWaveHeightMapVisualizerExample" type="Node3D"]
+
+[node name="Ocean3D" type="Node3D" parent="."]
+script = ExtResource("1_ld6hk")
+
+[node name="OceanWaveCascadeVisualizer" type="Node3D" parent="." node_paths=PackedStringArray("ocean")]
+script = ExtResource("2_kvkhy")
+ocean = NodePath("../Ocean3D")
+height_map_shader = SubResource("ShaderMaterial_7hxqx")
